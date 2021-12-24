@@ -20,9 +20,17 @@
   "extends": ["eslint:recommended", "prettier"],
   "parserOptions": {
     "ecmaVersion": 2021,
+    "ecmaFeatures": {
+      "experimentalObjectRestSpread": true,
+      "jsx": true,
+      "arrowFunctions": true,
+      "classes": true,
+      "modules": true,
+      "defaultParams": true
+    },
     "sourceType": "module"
   },
-  "plugins": ["prettier"],
+  "plugins": ["prettier", "react"],
   "settings": {
     "import/resolver": {
       "webpack": {
