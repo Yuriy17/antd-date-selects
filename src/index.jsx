@@ -13,8 +13,8 @@ const startData = {
       type: 'datePicker',
       label: 'Month',
       optionalField: true,
-      min: '2',
-      max: '10',
+      min: '2', // can be 'today'
+      max: '12', // can be 'today' , maximum 12
     },
     {
       name: 'us_visa_expiration_day',
@@ -22,8 +22,8 @@ const startData = {
       type: 'datePicker',
       label: 'Date',
       optionalField: true,
-      min: '3',
-      max: '25',
+      min: '3', // can be 'today'
+      max: 'today', // can be 'today'
     },
     {
       name: 'us_visa_expiration_year',
@@ -31,8 +31,8 @@ const startData = {
       type: 'datePicker',
       label: 'Year',
       optionalField: true,
-      min: '1996',
-      max: '2019',
+      min: '1996', // can be 'today'
+      max: 'today', // can be 'today'
     },
   ],
 }
@@ -43,6 +43,7 @@ const types = {
 }
 const App = () => {
   const newObj = {}
+  const currentDate = new Date()
   startData.fields.forEach(({ label, min, max, name }) => {
     const res = {
       name,
@@ -52,12 +53,18 @@ const App = () => {
     switch (label) {
       case types.YEAR:
         newObj.year = res
+        if (max === 'today') newObj.year.max = currentDate.getFullYear()
+        if (min === 'today') newObj.year.min = currentDate.getFullYear()
         break
       case types.MONTH:
         newObj.month = res
+        if (max === 'today') newObj.month.max = currentDate.getMonth() + 1
+        if (min === 'today') newObj.month.min = currentDate.getMonth() + 1
         break
       case types.DATE:
         newObj.date = res
+        if (max === 'today') newObj.date.max = currentDate.getDate()
+        if (min === 'today') newObj.date.min = currentDate.getDate()
         break
 
       default:

@@ -93,12 +93,16 @@ const defaultMonths = {
 }
 const getMonthDate = (minMonth, maxMonth, minDate, maxDate) => {
   const monthDate = {}
-  for (let index = +minMonth || 1; index < (+maxMonth + 1 || 13); index += 1) {
-    const monthObj = defaultMonths[index]
-    monthDate[index] = {
-      min: minDate || monthObj.min,
-      max: maxDate || monthObj.max,
-      name: monthObj.name,
+  if (+maxMonth > 12) {
+    console.log('max month 12')
+  } else {
+    for (let index = +minMonth || 1; index <= (+maxMonth || 12); index += 1) {
+      const monthObj = defaultMonths[index]
+      monthDate[index] = {
+        min: minDate || monthObj.min,
+        max: maxDate || monthObj.max,
+        name: monthObj.name,
+      }
     }
   }
   return monthDate
@@ -178,7 +182,7 @@ export const DateSelect = ({ year, month, date }) => {
             }
             style={{ width: 120 }}
           >
-            {optionsArrayFromMinMax(year.min || 2000, year.max || new Date().getFullYear())}
+            {optionsArrayFromMinMax(year.min || 2000, year.max || 2030)}
           </Select>
         </Col>
       </Row>
