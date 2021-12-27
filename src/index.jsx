@@ -28,7 +28,7 @@
 import 'antd/dist/antd.css'
 import React from 'react'
 import { render } from 'react-dom'
-import { Date } from './js/date'
+import { DateSelect } from './js/dateSelect'
 // import './index.css'
 const startData = {
   name: 'us_visa_expiration',
@@ -41,6 +41,8 @@ const startData = {
       type: 'datePicker',
       label: 'Month',
       optionalField: true,
+      min: '',
+      max: '10',
     },
     {
       name: 'us_visa_expiration_day',
@@ -48,6 +50,8 @@ const startData = {
       type: 'datePicker',
       label: 'Date',
       optionalField: true,
+      min: '',
+      max: '',
     },
     {
       name: 'us_visa_expiration_year',
@@ -55,16 +59,46 @@ const startData = {
       type: 'datePicker',
       label: 'Year',
       optionalField: true,
-      min: '1996',
-      max: '2020',
+      min: '',
+      max: '',
     },
   ],
 }
+const types = {
+  YEAR: 'Year',
+  DATE: 'Date',
+  MONTH: 'Month',
+}
+const App = () => {
+  const newObj = {}
+  startData.fields.forEach(({ label, min, max, name }) => {
+    const res = {
+      name,
+      min,
+      max,
+    }
+    switch (label) {
+      case types.YEAR:
+        //year.options = optionsArrayFromMinMax(min || 2000, max || new Date().getFullYear())
+        newObj.year = res
+        break
+      case types.MONTH:
+        newObj.month = res
+        break
+      case types.DATE:
+        newObj.date = res
+        break
 
-const App = () => (
-  <div style={{ width: 400, margin: '100px auto' }}>
-    <Date data={startData} />
-  </div>
-)
+      default:
+        break
+    }
+  })
+  console.log('🚀 ~ file: index.jsx ~ line 99 ~ App ~ newObj', newObj)
+  return (
+    <div style={{ width: 400, margin: '0 auto', padding: '100px 20px 0' }}>
+      <DateSelect year={newObj.year} month={newObj.month} date={newObj.date} />
+    </div>
+  )
+}
 
 render(<App />, document.getElementById('root'))
