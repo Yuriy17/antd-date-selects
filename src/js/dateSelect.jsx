@@ -114,7 +114,6 @@ export const DateSelect = ({ year, month, date }) => {
     if (currentYear) {
       if (month.min < 3) {
         const isLeapYear = new Date(currentYear, 1, 29).getMonth() == 1 ? true : false
-        console.log('🚀 ~ file: dateSelect.jsx ~ line 120 ~ useEffect ~ isLeapYear', isLeapYear)
 
         setMonths((prev) => ({
           ...prev,
@@ -123,7 +122,6 @@ export const DateSelect = ({ year, month, date }) => {
             max: isLeapYear ? 29 : 28,
           },
         }))
-        console.log(months[2])
       }
     }
   }, [currentYear])
