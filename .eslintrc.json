@@ -23,6 +23,7 @@
     "ecmaFeatures": {
       "experimentalObjectRestSpread": true,
       "jsx": true,
+      "tsx": true,
       "arrowFunctions": true,
       "classes": true,
       "modules": true,

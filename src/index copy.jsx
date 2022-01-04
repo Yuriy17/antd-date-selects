@@ -24,7 +24,6 @@ const startData = {
       optionalField: true,
       min: '3', // can be 'today'
       max: 'today', // can be 'today'
-      defaultValue: '4'
     },
     {
       name: 'us_visa_expiration_year',
@@ -44,38 +43,52 @@ const types = {
 }
 const App = () => {
   const { fields } = startData;
+  const newObj = {}
   const currentDate = new Date()
 
-  const setToday = (property, label) => {
-    let res = '';
-    if (property === 'today') {
-      switch (label) {
-        case types.YEAR:
-          res = currentDate.getFullYear()
-          break
-        case types.MONTH:
-          res = currentDate.getMonth() + 1
-          break
-        case types.DATE:
-          res = currentDate.getDate()
-          break
-      }
-    } else {
-      res = property;
+
+  // console.log(fields.reduce((previous, next) => {
+  //   const { label, min, max, name } = previous;
+  //   return 
+  // }));
+  // fields.map(({ label, min, max, name }) => {
+  //   newObj[label] = {
+  //     min: min === 'today' ? currentDate.getFullYear(): ,
+  //     max,
+  //     name
+  //   }
+  // });
+  fields.forEach(({ label, min, max, name }) => {
+    const res = {
+      name,
+      min,
+      max,
     }
-    return res
-  }
-  const newFields = fields.map(({ label, min, max, name, defaultValue }) => ({
-    label,
-    min: setToday(min, label),
-    max: setToday(max, label),
-    name,
-    defaultValue
-  }));
+    switch (label) {
+      case types.YEAR:
+        newObj.year = res
+        if (max === 'today') newObj.year.max = currentDate.getFullYear()
+        if (min === 'today') newObj.year.min = currentDate.getFullYear()
+        break
+      case types.MONTH:
+        newObj.month = res
+        if (max === 'today') newObj.month.max = currentDate.getMonth() + 1
+        if (min === 'today') newObj.month.min = currentDate.getMonth() + 1
+        break
+      case types.DATE:
+        newObj.date = res
+        if (max === 'today') newObj.date.max = currentDate.getDate()
+        if (min === 'today') newObj.date.min = currentDate.getDate()
+        break
+
+      default:
+        break
+    }
+  })
 
   return (
     <div style={{ width: 400, margin: '0 auto', padding: '100px 20px 0' }}>
-      <DateSelect fields={newFields} />
+      <DateSelect year={newObj.year} month={newObj.month} date={newObj.date} />
     </div>
   )
 }

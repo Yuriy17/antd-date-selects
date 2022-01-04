@@ -49,7 +49,15 @@ module.exports = {
     rules: [
       // JavaScript: Use Babel to transpile JavaScript files
       {
-        test: /\.jsx?$/,
+        test: /\.tsx?$/,
+        loader: 'ts-loader',
+        options: {
+          transpileOnly: true,
+        },
+        exclude: /node_modules/,
+      },
+      {
+        test: /\.(js|jsx)?$/,
         use: [
           'babel-loader',
           {
@@ -57,6 +65,7 @@ module.exports = {
             options: { emitWarning: false, failOnError: false, failOnWarning: false },
           },
         ],
+        exclude: /node_modules/,
       },
 
       // Images: Copy image files to build folder
@@ -69,7 +78,7 @@ module.exports = {
 
   resolve: {
     modules: [paths.src, 'node_modules'],
-    extensions: ['.js', '.jsx', '.json'],
+    extensions: ['.js', '.jsx', '.tsx', '.ts', '.json'],
     alias: {
       '@': paths.src,
       assets: paths.public,

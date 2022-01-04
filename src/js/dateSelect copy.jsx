@@ -107,13 +107,12 @@ const getMonthDate = (minMonth, maxMonth, minDate, maxDate) => {
   }
   return monthDate
 }
-export const DateSelect = (fields) => {
-  const [currentDay, setCurrentDay] = useState()
+export const DateSelect = ({ year, month, date }) => {
+  const [currentDate, setCurrentDate] = useState()
   const [currentMonth, setCurrentMonth] = useState()
   const [currentYear, setCurrentYear] = useState()
   const newMonth = getMonthDate(month.min, month.max, date.min, date.max)
   const [months, setMonths] = useState(newMonth)
-  const [currentDays, setCurrentDays] = useState()
 
   useEffect(() => {
     if (currentYear) {
@@ -130,16 +129,7 @@ export const DateSelect = (fields) => {
       }
     }
   }, [currentYear])
-  const createElement = () => {
-    
-  }
-  const elements = fields.map((element) => {
-    const { label, min, max, name, defaultValue } = element;
 
-    return (
-
-    );
-  })
   return (
     <Input.Group size="large">
       <Row>
@@ -165,8 +155,8 @@ export const DateSelect = (fields) => {
         <Col span={8}>
           <Select
             name={date.name}
-            onChange={(value) => setCurrentDay(value)}
-            value={currentDay}
+            onChange={(value) => setCurrentDate(value)}
+            value={currentDate}
             showSearch
             placeholder="Date"
             filterOption={(input, option) =>
