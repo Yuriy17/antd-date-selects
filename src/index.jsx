@@ -24,7 +24,7 @@ const startData = {
       optionalField: true,
       min: '3', // can be 'today'
       max: 'today', // can be 'today'
-      defaultValue: '4'
+      defaultValue: '4',
     },
     {
       name: 'us_visa_expiration_year',
@@ -43,11 +43,11 @@ const types = {
   MONTH: 'Month',
 }
 const App = () => {
-  const { fields } = startData;
+  const { fields } = startData
   const currentDate = new Date()
 
   const setToday = (property, label) => {
-    let res = '';
+    let res = ''
     if (property === 'today') {
       switch (label) {
         case types.YEAR:
@@ -61,17 +61,17 @@ const App = () => {
           break
       }
     } else {
-      res = property;
+      res = property
     }
-    return res
+    return +res
   }
   const newFields = fields.map(({ label, min, max, name, defaultValue }) => ({
     label,
     min: setToday(min, label),
     max: setToday(max, label),
     name,
-    defaultValue
-  }));
+    defaultValue,
+  }))
 
   return (
     <div style={{ width: 400, margin: '0 auto', padding: '100px 20px 0' }}>
